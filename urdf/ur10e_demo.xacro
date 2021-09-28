@@ -9,10 +9,7 @@
   <xacro:ur10e_robot prefix="" />
   <xacro:add_cube link_name="cube" x="1.5" attach_to="base_link" box_size="0.2"/>
 
-  <xacro:add_cube link_name="tool" x="0.05" attach_to="tool0" box_size="0.1"/>
-
   <xacro:place_stl link_name="orodje" stl_location='package://fe_tf/urdf/visual/podstavek.STL' attach_to="tool0"/>
-
 
   <xacro:place_stl link_name="podstavek" x="1.0" stl_location='package://fe_tf/urdf/visual/podstavek.STL' attach_to="base_link"/>
 
