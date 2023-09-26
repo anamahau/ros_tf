@@ -3,14 +3,12 @@
 import rospy
 import tf2_ros
 from geometry_msgs.msg import TransformStamped
-import time
-import math
 
 if __name__ == '__main__':
 
-    rospy.init_node('tf_broadcaster')
+    rospy.init_node('tf_static_broadcaster')
 
-    tf_broad = tf2_ros.TransformBroadcaster()
+    tf_broad = tf2_ros.StaticTransformBroadcaster()
 
     frame_1 = TransformStamped()
     frame_1.child_frame_id = 'frame_1'
@@ -27,17 +25,13 @@ if __name__ == '__main__':
     frame_2.header.frame_id = 'frame_1'
 
     frame_2.transform.rotation.w = 1.0
-    
+
+    frame_2.transform.translation.x = 1.0
     frame_2.transform.translation.y = 0.0
+    frame_2.transform.translation.z = 0.0
 
     rospy.loginfo("Publishing transform from {0} to {1}".format(frame_1.header.frame_id, frame_1.child_frame_id))
+    tf_broad.sendTransform([frame_1, frame_2])
+    #tf_broad.sendTransform([frame_2])
 
-    while not rospy.is_shutdown():
-        t = rospy.get_time()
-        frame_2.transform.translation.x = math.sin(t)
-        frame_2.transform.translation.z = math.cos(t)
-
-        tf_broad.sendTransform([frame_1, frame_2])
-        rospy.sleep(0.1)
-
-    #rospy.spin()
+    rospy.spin()
